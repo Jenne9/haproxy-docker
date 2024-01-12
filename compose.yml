@@ -1,0 +1,28 @@
+---
+version: '3'
+
+services:
+  haproxy:
+    image: haproxytech/haproxy-alpine:2.8
+    container_name:  lb
+    ports:
+      - "80:80"
+      - "8080:8404"
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+
+    depends_on:
+      - web1
+      - web2
+      - web3
+
+  web1:
+    image: nginx:latest
+    container_name: nginx1
+  web2:
+    image: nginx:latest
+    container_name: nginx2
+  web3:
+    image: nginx:latest
+    container_name: nginx3
+    
